@@ -15,9 +15,10 @@ func main() {
 	var userName string
 	var userTickets int
 
-	// var userName string
+	// Ask User Input
+	fmt.Scan(&userName)
+	// Here in Golang variables are stored in memory and we can access them using their address vai  kind of table
 
-	userName = "John Doe"
 	userTickets = 5
 	fmt.Printf("Hello %v, you have booked %v tickets\n", userName, userTickets)
 }
