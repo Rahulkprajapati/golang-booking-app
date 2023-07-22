@@ -17,7 +17,7 @@ func main() {
 
 	// Ask User Input
 	fmt.Scan(&userName)
-	// Here in Golang variables are stored in memory and we can access them using their address vai  kind of table
+	// Here in Golang variables are stored in memory and we can access them using their memory address vai adding "&" pointers which acts special var to store memory store-> Hashtable
 
 	userTickets = 5
 	fmt.Printf("Hello %v, you have booked %v tickets\n", userName, userTickets)
