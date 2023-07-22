@@ -6,7 +6,9 @@ func main() {
 	conferenceName := "Golang Conference"
 	const conferenceTickets int = 50
 	var remainingTickets uint = 50
-	var bookings [50]string
+
+	// Using Slices instead of Arrays gives us more flexibility and we can add more items in it without defining the size of array
+	var bookings []string
 
 	fmt.Printf("Data Types of conferenceName is: %T , conferenceTickets is: %T and remainingTickets is: %T\n", conferenceName, conferenceTickets, remainingTickets)
 	fmt.Printf("Welcome to our %v booking Application\n", conferenceName)
@@ -32,12 +34,13 @@ func main() {
 	fmt.Scan(&userTickets)
 
 	remainingTickets = remainingTickets - userTickets
-	bookings[0] = firstName + " " + lastName
+	//bookings[0] = firstName + " " + lastName
+	bookings = append(bookings, firstName+" "+lastName)
 
 	fmt.Printf("Whole Booking Array is: %v\n", bookings)
 	fmt.Printf("First Booking is: %v\n", bookings[0])
-	fmt.Printf("Array type is: %T\n", bookings)
-	fmt.Printf("Array Length is: %v\n", len(bookings))
+	fmt.Printf("Slice type is: %T\n", bookings)
+	fmt.Printf("Slice Length is: %v\n", len(bookings))
 	// Here in Golang variables are stored in memory and we can access them using their memory address vai adding "&" pointers which acts special var to store memory store-> Hashtable
 
 	fmt.Printf("Thank you %v %v for booking %v tickets for %v conference. Your tickets are booked and you will receive a confirmation email on %v\n", firstName, lastName, userTickets, conferenceName, email)
