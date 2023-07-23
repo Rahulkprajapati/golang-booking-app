@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	conferenceName := "Golang Conference"
@@ -48,7 +51,15 @@ func main() {
 
 		fmt.Printf("Thank you %v %v for booking %v tickets for %v conference. Your tickets are booked and you will receive a confirmation email on %v\n", firstName, lastName, userTickets, conferenceName, email)
 		fmt.Printf("Remaining Tickets are: %v for %v\n", remainingTickets, conferenceName)
+        
 
-		fmt.Printf("These are all our bookings: %v\n", bookings)
+		firstNames := []string{}
+
+		// Foreach loop which gives index and its corresponding value in each iteration
+		for _, booking := range bookings {
+			var names = strings.Fields(booking)
+			firstNames = append(firstNames, names[0])
+		}
+		fmt.Printf("The First Names of Bookings are: %v\n", firstNames) 
 	}
 }
