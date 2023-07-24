@@ -37,41 +37,31 @@ func main() {
 
 		fmt.Println("Enter Number of Tickets You Want to Book:  ")
 		fmt.Scan(&userTickets)
-        
 
-		if userTickets > remainingTickets {
+		if userTickets <= remainingTickets {
+			remainingTickets = remainingTickets - userTickets
+			//bookings[0] = firstName + " " + lastName
+			bookings = append(bookings, firstName+" "+lastName)
+
+			// Here in Golang variables are stored in memory and we can access them using their memory address vai adding "&" pointers which acts special var to store memory store-> Hash-table
+			fmt.Printf("Thank you %v %v for booking %v tickets for %v conference. Your tickets are booked and you will receive a confirmation email on %v\n", firstName, lastName, userTickets, conferenceName, email)
+			fmt.Printf("Remaining Tickets are: %v for %v\n", remainingTickets, conferenceName)
+
+			firstNames := []string{}
+
+			// Foreach loop which gives index and its corresponding value in each iteration
+			for _, booking := range bookings {
+				var names = strings.Fields(booking)
+				firstNames = append(firstNames, names[0])
+			}
+			fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
+
+			if remainingTickets == 0 {
+				fmt.Println("Sorry! We are Sold Out")
+				break
+			}
+		} else {
 			fmt.Printf("Sorry! We only have %v tickets left, You cant book %v, tickets\n", remainingTickets, userTickets)
-			continue
 		}
-		remainingTickets = remainingTickets - userTickets
-		//bookings[0] = firstName + " " + lastName
-		bookings = append(bookings, firstName+" "+lastName)
-
-		fmt.Printf("Whole Booking Array is: %v\n", bookings)
-		fmt.Printf("First Booking is: %v\n", bookings[0])
-		fmt.Printf("Slice type is: %T\n", bookings)
-		fmt.Printf("Slice Length is: %v\n", len(bookings))
-
-		// Here in Golang variables are stored in memory and we can access them using their memory address vai adding "&" pointers which acts special var to store memory store-> Hashtable
-
-		fmt.Printf("Thank you %v %v for booking %v tickets for %v conference. Your tickets are booked and you will receive a confirmation email on %v\n", firstName, lastName, userTickets, conferenceName, email)
-		fmt.Printf("Remaining Tickets are: %v for %v\n", remainingTickets, conferenceName)
-
-		firstNames := []string{}
-
-		// Foreach loop which gives index and its corresponding value in each iteration
-		for _, booking := range bookings {
-			var names = strings.Fields(booking)
-			firstNames = append(firstNames, names[0])
-		}
-		fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
-
-
-		if remainingTickets == 0 {
-			fmt.Println("Sorry! We are Sold Out")
-			break
-		}
-
-		// If we want to break the loop we can use break keyword
 	}
 }
