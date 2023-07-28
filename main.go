@@ -66,6 +66,15 @@ func main() {
 			}
 		} else {
 			//Enter Valid Details
+			if !isValidName {
+				fmt.Printf("Your Name is Invalid. Please Try Again\n")
+			}
+			if !isValidEmail {
+				fmt.Printf("Your Email is Invalid. Please Try Again\n")
+			}
+			if !isValidaeTickets {
+				fmt.Printf("Your Tickets are Invalid. Please Try Again\n")
+			}
 			fmt.Printf("Your Booking is Invalid. Please Try Again\n")
 		}
 	}
