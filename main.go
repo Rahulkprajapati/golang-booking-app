@@ -78,4 +78,27 @@ func main() {
 			fmt.Printf("Your Booking is Invalid. Please Try Again\n")
 		}
 	}
+	// Switch Case
+	city := "London"
+	switch city {
+		case "London":
+			//code for booking London conference tickets
+			fmt.Println("Welcome to London")
+		case "New York":
+			//code for booking New York conference tickets
+			fmt.Println("Welcome to New York")
+		case "Sydney", "Melbourne":
+			//code for booking Sydney conference tickets
+			fmt.Println("Welcome to Sydney or Melbourne")
+		case "Paris":
+			//code for booking Paris conference tickets
+			fmt.Println("Welcome to Paris")
+		case "Tokyo" , "Singapore":
+			//code for booking Tokyo conference tickets
+			fmt.Println("Welcome to Tokyo or Singapore ")
+		default:
+			//code for No vaild Input display
+			fmt.Println("Welcome to Default")
+	}
+
 }
