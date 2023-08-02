@@ -14,12 +14,7 @@ func main() {
 	// var bookings []string
 	bookings := []string{}
 
-	greetUsers(conferenceName)
-
-	fmt.Printf("Data Types of conferenceName is: %T , conferenceTickets is: %T and remainingTickets is: %T\n", conferenceName, conferenceTickets, remainingTickets)
-	fmt.Printf("Welcome to our %v booking Application\n", conferenceName)
-	fmt.Printf("We have total numbers of %v tickets and %v are still available\n", conferenceTickets, remainingTickets)
-	fmt.Println("Get Your Ticket Now")
+	greetUsers(conferenceName,conferenceTickets,remainingTickets)
 
 	for remainingTickets > 0 && len(bookings) < 50 {
 		var firstName string
@@ -105,6 +100,9 @@ func main() {
 
 }
 
-func greetUsers(confeName string) {
-	fmt.Printf("Welcome to our %v Booking Application\n", confeName)
+func greetUsers(confName string, confTickets int, remainingTickets uint) {
+	fmt.Printf("Welcome to our %v Booking Application\n", confName)
+	fmt.Printf("Data Types of conferenceName is: %T , conferenceTickets is: %T and remainingTickets is: %T\n", confName, confTickets, remainingTickets)
+	fmt.Printf("We have total numbers of %v tickets and %v are still available\n", confTickets, remainingTickets)
+	fmt.Println("Get Your Ticket Now")
 }
