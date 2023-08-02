@@ -14,6 +14,8 @@ func main() {
 	// var bookings []string
 	bookings := []string{}
 
+	greetUsers(conferenceName)
+
 	fmt.Printf("Data Types of conferenceName is: %T , conferenceTickets is: %T and remainingTickets is: %T\n", conferenceName, conferenceTickets, remainingTickets)
 	fmt.Printf("Welcome to our %v booking Application\n", conferenceName)
 	fmt.Printf("We have total numbers of %v tickets and %v are still available\n", conferenceTickets, remainingTickets)
@@ -79,26 +81,30 @@ func main() {
 		}
 	}
 	// Switch Case
-	city := "London"
-	switch city {
-		case "London":
-			//code for booking London conference tickets
-			fmt.Println("Welcome to London")
-		case "New York":
-			//code for booking New York conference tickets
-			fmt.Println("Welcome to New York")
-		case "Sydney", "Melbourne":
-			//code for booking Sydney conference tickets
-			fmt.Println("Welcome to Sydney or Melbourne")
-		case "Paris":
-			//code for booking Paris conference tickets
-			fmt.Println("Welcome to Paris")
-		case "Tokyo" , "Singapore":
-			//code for booking Tokyo conference tickets
-			fmt.Println("Welcome to Tokyo or Singapore ")
-		default:
-			//code for No vaild Input display
-			fmt.Println("Welcome to Default")
-	}
+	// city := "London"
+	// switch city {
+	// 	case "London":
+	// 		//code for booking London conference tickets
+	// 		fmt.Println("Welcome to London")
+	// 	case "New York":
+	// 		//code for booking New York conference tickets
+	// 		fmt.Println("Welcome to New York")
+	// 	case "Sydney", "Melbourne":
+	// 		//code for booking Sydney conference tickets
+	// 		fmt.Println("Welcome to Sydney or Melbourne")
+	// 	case "Paris":
+	// 		//code for booking Paris conference tickets
+	// 		fmt.Println("Welcome to Paris")
+	// 	case "Tokyo" , "Singapore":
+	// 		//code for booking Tokyo conference tickets
+	// 		fmt.Println("Welcome to Tokyo or Singapore ")
+	// 	default:
+	// 		//code for No vaild Input display
+	// 		fmt.Println("Welcome to Default")
+	// }
 
+}
+
+func greetUsers(confeName string) {
+	fmt.Printf("Welcome to our %v Booking Application\n", confeName)
 }
