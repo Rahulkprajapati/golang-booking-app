@@ -14,7 +14,7 @@ func main() {
 	// var bookings []string
 	bookings := []string{}
 
-	greetUsers(conferenceName,conferenceTickets,remainingTickets)
+	greetUsers(conferenceName, conferenceTickets, remainingTickets)
 
 	for remainingTickets > 0 && len(bookings) < 50 {
 		var firstName string
@@ -48,14 +48,8 @@ func main() {
 			fmt.Printf("Thank you %v %v for booking %v tickets for %v conference. Your tickets are booked and you will receive a confirmation email on %v\n", firstName, lastName, userTickets, conferenceName, email)
 			fmt.Printf("Remaining Tickets are: %v for %v\n", remainingTickets, conferenceName)
 
-			firstNames := []string{}
-
-			// Foreach loop which gives index and its corresponding value in each iteration
-			for _, booking := range bookings {
-				var names = strings.Fields(booking)
-				firstNames = append(firstNames, names[0])
-			}
-			fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
+			//first Name
+			printfirstNames(bookings)
 
 			if remainingTickets == 0 {
 				fmt.Println("Sorry! We are Sold Out")
@@ -105,4 +99,15 @@ func greetUsers(confName string, confTickets int, remainingTickets uint) {
 	fmt.Printf("Data Types of conferenceName is: %T , conferenceTickets is: %T and remainingTickets is: %T\n", confName, confTickets, remainingTickets)
 	fmt.Printf("We have total numbers of %v tickets and %v are still available\n", confTickets, remainingTickets)
 	fmt.Println("Get Your Ticket Now")
+}
+
+func printfirstNames(bookings []string) {
+	firstNames := []string{}
+	// Foreach loop which gives index and its corresponding value in each iteration
+	for _, booking := range bookings {
+		var names = strings.Fields(booking)
+		firstNames = append(firstNames, names[0])
+	}
+	fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
+
 }
