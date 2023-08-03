@@ -49,7 +49,8 @@ func main() {
 			fmt.Printf("Remaining Tickets are: %v for %v\n", remainingTickets, conferenceName)
 
 			//first Name
-			printfirstNames(bookings)
+			firstNames := (bookings)
+			fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
 
 			if remainingTickets == 0 {
 				fmt.Println("Sorry! We are Sold Out")
@@ -101,13 +102,15 @@ func greetUsers(confName string, confTickets int, remainingTickets uint) {
 	fmt.Println("Get Your Ticket Now")
 }
 
-func printfirstNames(bookings []string) {
+func getfirstNames(bookings []string) []string{
+	// when we returning a value from function needs to also define the return type of function []string
 	firstNames := []string{}
 	// Foreach loop which gives index and its corresponding value in each iteration
 	for _, booking := range bookings {
 		var names = strings.Fields(booking)
 		firstNames = append(firstNames, names[0])
 	}
-	fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
+	//fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
+	return firstNames
 
 }
