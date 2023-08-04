@@ -35,10 +35,8 @@ func main() {
 		fmt.Println("Enter Number of Tickets You Want to Book:  ")
 		fmt.Scan(&userTickets)
 
-		isValidName := len(firstName) >= 2 && len(lastName) >= 2
-		isValidEmail := strings.Contains(email, "@")
-		isValidaeTickets := userTickets > 0 && userTickets <= remainingTickets
-
+		// Validate User Input
+		isValidName, isValidEmail, isValidaeTickets :=  validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 		if isValidName && isValidEmail && isValidaeTickets {
 			remainingTickets = remainingTickets - userTickets
 			//bookings[0] = firstName + " " + lastName
@@ -113,4 +111,13 @@ func getfirstNames(bookings []string) []string{
 	//fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
 	return firstNames
 
+}
+
+func validateUserInput(firstName string, lastName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool){
+	isValidName := len(firstName) >= 2 && len(lastName) >= 2
+	isValidEmail := strings.Contains(email, "@")
+	isValidaeTickets := userTickets > 0 && userTickets <= remainingTickets
+
+	// IN go u can return multiple values from function
+	return isValidName, isValidEmail, isValidaeTickets
 }
