@@ -26,37 +26,16 @@ func main() {
 	greetUsers(conferenceName, conferenceTickets, remainingTickets)
 
 	for remainingTickets > 0 && len(bookings) < 50 {
-		var firstName string
-		var lastName string
-		var email string
-		var userTickets uint
-
-		// Ask User Input
-		fmt.Println("Please Enter Your First Name:  ")
-		fmt.Scan(&firstName)
-
-		fmt.Println("Please Enter Your Last Name:  ")
-		fmt.Scan(&lastName)
-
-		fmt.Println("Please Enter Your Email:  ")
-		fmt.Scan(&email)
-
-		fmt.Println("Enter Number of Tickets You Want to Book:  ")
-		fmt.Scan(&userTickets)
+		
 
 		// Validate User Input
-		isValidName, isValidEmail, isValidaeTickets :=  validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
+		firstName, lastName, email, userTickets := getUserInput()
+		isValidName, isValidEmail, isValidaeTickets :=  validateUserInput(firstName, lastName, email, userTickets)
 		if isValidName && isValidEmail && isValidaeTickets {
-			remainingTickets = remainingTickets - userTickets
-			//bookings[0] = firstName + " " + lastName
-			bookings = append(bookings, firstName+" "+lastName)
-
-			// Here in Golang variables are stored in memory and we can access them using their memory address vai adding "&" pointers which acts special var to store memory store-> Hash-table
-			fmt.Printf("Thank you %v %v for booking %v tickets for %v conference. Your tickets are booked and you will receive a confirmation email on %v\n", firstName, lastName, userTickets, conferenceName, email)
-			fmt.Printf("Remaining Tickets are: %v for %v\n", remainingTickets, conferenceName)
-
+            
+			bookTicket( userTickets, firstName, lastName, email)
 			//first Name
-			firstNames := (bookings)
+			firstNames := getfirstNames()
 			fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
 
 			if remainingTickets == 0 {
@@ -103,13 +82,13 @@ func main() {
 }
 
 func greetUsers(confName string, confTickets int, remainingTickets uint) {
-	fmt.Printf("Welcome to our %v Booking Application\n", confName)
-	fmt.Printf("Data Types of conferenceName is: %T , conferenceTickets is: %T and remainingTickets is: %T\n", confName, confTickets, remainingTickets)
-	fmt.Printf("We have total numbers of %v tickets and %v are still available\n", confTickets, remainingTickets)
+	fmt.Printf("Welcome to our %v Booking Application\n", conferenceName)
+	fmt.Printf("Data Types of conferenceName is: %T , conferenceTickets is: %T and remainingTickets is: %T\n", conferenceName, conferenceTickets, remainingTickets)
+	fmt.Printf("We have total numbers of %v tickets and %v are still available\n", conferenceTickets, remainingTickets)
 	fmt.Println("Get Your Ticket Now")
 }
 
-func getfirstNames(bookings []string) []string{
+func getfirstNames() []string{
 	// when we returning a value from function needs to also define the return type of function []string
 	firstNames := []string{}
 	// Foreach loop which gives index and its corresponding value in each iteration
@@ -122,11 +101,44 @@ func getfirstNames(bookings []string) []string{
 
 }
 
-func validateUserInput(firstName string, lastName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool){
+func validateUserInput(firstName string, lastName string, email string, userTickets uint) (bool, bool, bool){
 	isValidName := len(firstName) >= 2 && len(lastName) >= 2
 	isValidEmail := strings.Contains(email, "@")
 	isValidaeTickets := userTickets > 0 && userTickets <= remainingTickets
 
 	// IN go u can return multiple values from function
 	return isValidName, isValidEmail, isValidaeTickets
+}
+
+func getUserInput() (string, string, string, uint) {
+		var firstName string
+		var lastName string
+		var email string
+		var userTickets uint
+
+		// Ask User Input
+		fmt.Println("Please Enter Your First Name:  ")
+		fmt.Scan(&firstName)
+
+		fmt.Println("Please Enter Your Last Name:  ")
+		fmt.Scan(&lastName)
+
+		fmt.Println("Please Enter Your Email:  ")
+		fmt.Scan(&email)
+
+		fmt.Println("Enter Number of Tickets You Want to Book:  ")
+		fmt.Scan(&userTickets)
+		
+		return firstName, lastName, email, userTickets
+}
+
+func bookTicket(userTickets uint, firstName string, lastName string, email string) {
+	remainingTickets = remainingTickets - userTickets
+	//bookings[0] = firstName + " " + lastName
+	bookings = append(bookings, firstName+" "+lastName)
+
+	// Here in Golang variables are stored in memory and we can access them using their memory address vai adding "&" pointers which acts special var to store memory store-> Hash-table
+	fmt.Printf("Thank you %v %v for booking %v tickets for %v conference. Your tickets are booked and you will receive a confirmation email on %v\n", firstName, lastName, userTickets, conferenceName, email)
+	fmt.Printf("Remaining Tickets are: %v for %v\n", remainingTickets, conferenceName)
+
 }
