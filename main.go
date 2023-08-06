@@ -5,14 +5,23 @@ import (
 	"strings"
 )
 
-func main() {
-	conferenceName := "Golang Conference"
-	const conferenceTickets int = 50
-	var remainingTickets uint = 50
+// We dfine our of main func as well as global variables here but we have to expllicitly define the data type of variables
+var conferenceName string = "Golang Conference"
+const conferenceTickets int = 50
+var remainingTickets uint = 50
 
-	// Using Slices instead of Arrays gives us more flexibility and we can add more items in it without defining the size of array
-	// var bookings []string
-	bookings := []string{}
+// Using Slices instead of Arrays gives us more flexibility and we can add more items in it without defining the size of array
+// var bookings []string
+var bookings = []string{}
+
+func main() {
+	// conferenceName := "Golang Conference"
+	// const conferenceTickets int = 50
+	// var remainingTickets uint = 50
+
+	// // Using Slices instead of Arrays gives us more flexibility and we can add more items in it without defining the size of array
+	// // var bookings []string
+	// bookings := []string{}
 
 	greetUsers(conferenceName, conferenceTickets, remainingTickets)
 
@@ -51,7 +60,7 @@ func main() {
 			fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
 
 			if remainingTickets == 0 {
-				fmt.Println("Sorry! We are Sold Out")
+				fmt.Println("Sorry! We are Sold Out, come back next year ✈️")
 				break
 			}
 		} else {
