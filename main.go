@@ -1,13 +1,16 @@
 package main
 
 import (
+	"booking-app/helper"
 	"fmt"
 	"strings"
 )
 
 // We dfine our of main func as well as global variables here but we have to expllicitly define the data type of variables
 var conferenceName string = "Golang Conference"
+
 const conferenceTickets int = 50
+
 var remainingTickets uint = 50
 
 // Using Slices instead of Arrays gives us more flexibility and we can add more items in it without defining the size of array
@@ -26,13 +29,14 @@ func main() {
 	greetUsers(conferenceName, conferenceTickets, remainingTickets)
 
 	for remainingTickets > 0 && len(bookings) < 50 {
-		
 
 		// Validate User Input
 		firstName, lastName, email, userTickets := getUserInput()
-		isValidName, isValidEmail, isValidaeTickets :=  validateUserInput(firstName, lastName, email, userTickets)
+
+		//helper -> helper.go -> ValidateUserInput
+		isValidName, isValidEmail, isValidaeTickets := helper.ValidateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 		if isValidName && isValidEmail && isValidaeTickets {
-			bookTicket( userTickets, firstName, lastName, email)
+			bookTicket(userTickets, firstName, lastName, email)
 			//first Name
 			firstNames := getfirstNames()
 			fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
@@ -87,7 +91,7 @@ func greetUsers(confName string, confTickets int, remainingTickets uint) {
 	fmt.Println("Get Your Ticket Now")
 }
 
-func getfirstNames() []string{
+func getfirstNames() []string {
 	// when we returning a value from function needs to also define the return type of function []string
 	firstNames := []string{}
 	// Foreach loop which gives index and its corresponding value in each iteration
@@ -101,25 +105,25 @@ func getfirstNames() []string{
 }
 
 func getUserInput() (string, string, string, uint) {
-		var firstName string
-		var lastName string
-		var email string
-		var userTickets uint
+	var firstName string
+	var lastName string
+	var email string
+	var userTickets uint
 
-		// Ask User Input
-		fmt.Println("Please Enter Your First Name:  ")
-		fmt.Scan(&firstName)
+	// Ask User Input
+	fmt.Println("Please Enter Your First Name:  ")
+	fmt.Scan(&firstName)
 
-		fmt.Println("Please Enter Your Last Name:  ")
-		fmt.Scan(&lastName)
+	fmt.Println("Please Enter Your Last Name:  ")
+	fmt.Scan(&lastName)
 
-		fmt.Println("Please Enter Your Email:  ")
-		fmt.Scan(&email)
+	fmt.Println("Please Enter Your Email:  ")
+	fmt.Scan(&email)
 
-		fmt.Println("Enter Number of Tickets You Want to Book:  ")
-		fmt.Scan(&userTickets)
-		
-		return firstName, lastName, email, userTickets
+	fmt.Println("Enter Number of Tickets You Want to Book:  ")
+	fmt.Scan(&userTickets)
+
+	return firstName, lastName, email, userTickets
 }
 
 func bookTicket(userTickets uint, firstName string, lastName string, email string) {
