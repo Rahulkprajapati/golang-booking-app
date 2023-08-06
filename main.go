@@ -3,32 +3,37 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
+	"sync"
 	"time"
 )
 
 // We defining our of main func as well as global variables here but we have to expllicitly define the data type of variables
 var conferenceName string = "Golang Conference"
+
 const conferenceTickets int = 50
+
 var remainingTickets uint = 50
+
 //Here we are creating a empty list of maps needs to provide size of list intially -> make([]map[string]string, 0)
 // var bookings = make([]map[string]string, 0)
 
 var bookings = make([]UserData, 0)
 
-
-
 // Mixed Data Types kinda of class in OOP
 type UserData struct {
-	firstName string
-	lastName string
-	email string
+	firstName       string
+	lastName        string
+	email           string
 	numberOfTickets uint
 }
 
-func main() {
-	greetUsers(conferenceName, conferenceTickets, remainingTickets)
+var wg = sync.WaitGroup{}
 
-	for remainingTickets > 0 && len(bookings) < 50 {
+func main() {
+
+	greetUsers()
+
+	// for remainingTickets > 0 && len(bookings) < 50 {
 
 		// Validate User Input
 		firstName, lastName, email, userTickets := getUserInput()
@@ -37,8 +42,9 @@ func main() {
 		isValidName, isValidEmail, isValidaeTickets := helper.ValidateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 		if isValidName && isValidEmail && isValidaeTickets {
 			bookTicket(userTickets, firstName, lastName, email)
-			
+
 			// Send Email "go" keyword is used to run the function in background and it will not wait for the function to complete
+			wg.Add(1)
 			go sendTicket(userTickets, firstName, lastName, email)
 			//first Name
 			firstNames := getfirstNames()
@@ -46,7 +52,7 @@ func main() {
 
 			if remainingTickets == 0 {
 				fmt.Println("Sorry! We are Sold Out, come back next year ✈️")
-				break
+				// break
 			}
 		} else {
 			//Enter Valid Details
@@ -61,7 +67,8 @@ func main() {
 			}
 			fmt.Printf("Your Booking is Invalid. Please Try Again\n")
 		}
-	}
+		wg.Wait()
+	// }
 	// Switch Case
 	// city := "London"
 	// switch city {
@@ -87,7 +94,7 @@ func main() {
 
 }
 
-func greetUsers(confName string, confTickets int, remainingTickets uint) {
+func greetUsers() {
 	fmt.Printf("Welcome to our %v Booking Application\n", conferenceName)
 	fmt.Printf("Data Types of conferenceName is: %T , conferenceTickets is: %T and remainingTickets is: %T\n", conferenceName, conferenceTickets, remainingTickets)
 	fmt.Printf("We have total numbers of %v tickets and %v are still available\n", conferenceTickets, remainingTickets)
@@ -97,7 +104,7 @@ func greetUsers(confName string, confTickets int, remainingTickets uint) {
 func getfirstNames() []string {
 	// when we returning a value from function needs to also define the return type of function []string
 	firstNames := []string{}
-	// 
+	//
 	for _, booking := range bookings {
 		// var names = strings.Fields(booking)
 		firstNames = append(firstNames, booking.firstName)
@@ -130,10 +137,10 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 
 	// creating empty maps for userData -> map[key]value
 	// var userData = make(map[string]string)
-	var userData = UserData {
-		firstName: firstName,
-		lastName: lastName,
-		email: email,
+	var userData = UserData{
+		firstName:       firstName,
+		lastName:        lastName,
+		email:           email,
 		numberOfTickets: userTickets,
 	}
 
@@ -148,8 +155,9 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 
 func sendTicket(userTickets uint, firstName string, lastName string, email string) {
 	time.Sleep(5 * time.Second)
-	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName) 
+	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName)
 	fmt.Println("**********Sending Email**********")
 	fmt.Printf("Your Tickets:\n %v \nto email address %v\n", ticket, email)
 	fmt.Println("**********Email Sent**********")
+	wg.Done()
 }
