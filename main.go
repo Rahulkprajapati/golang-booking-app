@@ -32,7 +32,6 @@ func main() {
 		firstName, lastName, email, userTickets := getUserInput()
 		isValidName, isValidEmail, isValidaeTickets :=  validateUserInput(firstName, lastName, email, userTickets)
 		if isValidName && isValidEmail && isValidaeTickets {
-            
 			bookTicket( userTickets, firstName, lastName, email)
 			//first Name
 			firstNames := getfirstNames()
@@ -99,15 +98,6 @@ func getfirstNames() []string{
 	//fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
 	return firstNames
 
-}
-
-func validateUserInput(firstName string, lastName string, email string, userTickets uint) (bool, bool, bool){
-	isValidName := len(firstName) >= 2 && len(lastName) >= 2
-	isValidEmail := strings.Contains(email, "@")
-	isValidaeTickets := userTickets > 0 && userTickets <= remainingTickets
-
-	// IN go u can return multiple values from function
-	return isValidName, isValidEmail, isValidaeTickets
 }
 
 func getUserInput() (string, string, string, uint) {
