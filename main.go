@@ -37,7 +37,9 @@ func main() {
 		isValidName, isValidEmail, isValidaeTickets := helper.ValidateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 		if isValidName && isValidEmail && isValidaeTickets {
 			bookTicket(userTickets, firstName, lastName, email)
-			sendTicket(userTickets, firstName, lastName, email)
+			
+			// Send Email "go" keyword is used to run the function in background and it will not wait for the function to complete
+			go sendTicket(userTickets, firstName, lastName, email)
 			//first Name
 			firstNames := getfirstNames()
 			fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
