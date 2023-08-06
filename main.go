@@ -3,6 +3,7 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
+	"time"
 )
 
 // We defining our of main func as well as global variables here but we have to expllicitly define the data type of variables
@@ -36,6 +37,7 @@ func main() {
 		isValidName, isValidEmail, isValidaeTickets := helper.ValidateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 		if isValidName && isValidEmail && isValidaeTickets {
 			bookTicket(userTickets, firstName, lastName, email)
+			sendTicket(userTickets, firstName, lastName, email)
 			//first Name
 			firstNames := getfirstNames()
 			fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
@@ -140,4 +142,12 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 	fmt.Printf("Thank you %v %v for booking %v tickets for %v conference. Your tickets are booked and you will receive a confirmation email on %v\n", firstName, lastName, userTickets, conferenceName, email)
 	fmt.Printf("Remaining Tickets are: %v for %v\n", remainingTickets, conferenceName)
 
+}
+
+func sendTicket(userTickets uint, firstName string, lastName string, email string) {
+	time.Sleep(5 * time.Second)
+	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName) 
+	fmt.Println("**********Sending Email**********")
+	fmt.Printf("Your Tickets:\n %v \nto email address %v\n", ticket, email)
+	fmt.Println("**********Email Sent**********")
 }
