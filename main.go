@@ -3,7 +3,7 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strings"
+	"strconv"
 )
 
 // We dfine our of main func as well as global variables here but we have to expllicitly define the data type of variables
@@ -13,19 +13,10 @@ const conferenceTickets int = 50
 
 var remainingTickets uint = 50
 
-// Using Slices instead of Arrays gives us more flexibility and we can add more items in it without defining the size of array
-// var bookings []string
-var bookings = []string{}
+//Here we are creating a empty list of maps needs to provide size of list intially -> make([]map[string]string, 0)
+var bookings = make([]map[string]string, 0)
 
 func main() {
-	// conferenceName := "Golang Conference"
-	// const conferenceTickets int = 50
-	// var remainingTickets uint = 50
-
-	// // Using Slices instead of Arrays gives us more flexibility and we can add more items in it without defining the size of array
-	// // var bookings []string
-	// bookings := []string{}
-
 	greetUsers(conferenceName, conferenceTickets, remainingTickets)
 
 	for remainingTickets > 0 && len(bookings) < 50 {
@@ -94,10 +85,10 @@ func greetUsers(confName string, confTickets int, remainingTickets uint) {
 func getfirstNames() []string {
 	// when we returning a value from function needs to also define the return type of function []string
 	firstNames := []string{}
-	// Foreach loop which gives index and its corresponding value in each iteration
+	// 
 	for _, booking := range bookings {
-		var names = strings.Fields(booking)
-		firstNames = append(firstNames, names[0])
+		// var names = strings.Fields(booking)
+		firstNames = append(firstNames, booking["firstName"])
 	}
 	//fmt.Printf("The First Names of Bookings are: %v\n", firstNames)
 	return firstNames
@@ -128,8 +119,22 @@ func getUserInput() (string, string, string, uint) {
 
 func bookTicket(userTickets uint, firstName string, lastName string, email string) {
 	remainingTickets = remainingTickets - userTickets
-	//bookings[0] = firstName + " " + lastName
-	bookings = append(bookings, firstName+" "+lastName)
+
+	// creating empty maps for userData -> map[key]value
+	var userData = make(map[string]string)
+
+	//userData["key"] = "value"
+	//map can same data type for key and value 
+	//We can not mix data types in map!
+	userData["firstName"] = firstName
+	userData["lastName"] = lastName
+	userData["email"] = email
+    //strconv.FormatUint converts uint to string
+	userData["numberOfTickets"] =  strconv.FormatUint(uint64(userTickets), 10)
+    
+
+
+	bookings = append(bookings, userData)
 
 	// Here in Golang variables are stored in memory and we can access them using their memory address vai adding "&" pointers which acts special var to store memory store-> Hash-table
 	fmt.Printf("Thank you %v %v for booking %v tickets for %v conference. Your tickets are booked and you will receive a confirmation email on %v\n", firstName, lastName, userTickets, conferenceName, email)
