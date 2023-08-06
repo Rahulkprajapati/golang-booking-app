@@ -27,13 +27,14 @@ type UserData struct {
 	numberOfTickets uint
 }
 
+// WaitGroup is used to wait for the program to finish goroutines
 var wg = sync.WaitGroup{}
 
 func main() {
 
 	greetUsers()
 
-	// for remainingTickets > 0 && len(bookings) < 50 {
+	for remainingTickets > 0 && len(bookings) < 50 {
 
 		// Validate User Input
 		firstName, lastName, email, userTickets := getUserInput()
@@ -44,6 +45,7 @@ func main() {
 			bookTicket(userTickets, firstName, lastName, email)
 
 			// Send Email "go" keyword is used to run the function in background and it will not wait for the function to complete
+			//wg.Add(1) -> adding 1 to wait group...1
 			wg.Add(1)
 			go sendTicket(userTickets, firstName, lastName, email)
 			//first Name
@@ -67,8 +69,9 @@ func main() {
 			}
 			fmt.Printf("Your Booking is Invalid. Please Try Again\n")
 		}
+		//wg.Wait() -> waiting for all the goroutines to complete -3
 		wg.Wait()
-	// }
+	}
 	// Switch Case
 	// city := "London"
 	// switch city {
@@ -160,4 +163,5 @@ func sendTicket(userTickets uint, firstName string, lastName string, email strin
 	fmt.Printf("Your Tickets:\n %v \nto email address %v\n", ticket, email)
 	fmt.Println("**********Email Sent**********")
 	wg.Done()
+	//wg.Done() -> removing 1 from wait group...2
 }
